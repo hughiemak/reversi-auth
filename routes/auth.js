@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const _ = require('lodash');
 const { User } = require('../models/user');
 const express = require('express');
+const jwt = require('jsonwebtoken');	
+const config = require('config');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -25,7 +27,10 @@ router.post('/', async (req, res) => {
         return res.status(400).send('Incorrect name or password.');
     }
  
-    res.send(_.pick(user, ['_id', 'name']));
+    const token = jwt.sign({ _id: user._id }, config.get('PrivateKey'));
+    res.send(token);
+
+    // res.send(_.pick(user, ['_id', 'name']));
 });
 
 function validate(req) {
