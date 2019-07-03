@@ -12,7 +12,7 @@ if (!config.get('PrivateKey')) {
     process.exit(1);
 }
  
-mongoose.connect('mongodb://localhost/mongo-games')
+mongoose.connect('mongodb://localhost/mongo-games', { useNewUrlParser: true, useFindAndModify: false})
     .then(() => console.log('Now connected to MongoDB!'))
     .catch(err => console.error('Something went wrong', err));
  

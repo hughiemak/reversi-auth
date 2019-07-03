@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const router = express.Router();
 
+//log in by name and password
 router.post('/', async (req, res) => {
     // First Validate The HTTP Request
     const { error } = validate(req.body);
@@ -28,7 +29,8 @@ router.post('/', async (req, res) => {
     }
  
     const token = jwt.sign({ _id: user._id }, config.get('PrivateKey'));
-    res.send(token);
+    res.header('x-auth-token', token).send(_.pick(user, ['_id', 'name']));
+    // res.send(token);
 
     // res.send(_.pick(user, ['_id', 'name']));
 });
