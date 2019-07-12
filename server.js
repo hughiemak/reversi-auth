@@ -6,6 +6,8 @@ const express = require('express');
 const auth = require('./routes/auth');
 const config = require('config');
 const app = express();
+var cors = require('cors');
+
 
 if (!config.get('PrivateKey')) {
     console.error('FATAL ERROR: PrivateKey is not defined.');
@@ -17,6 +19,7 @@ mongoose.connect('mongodb://localhost/mongo-games', { useNewUrlParser: true, use
     .catch(err => console.error('Something went wrong', err));
  
 app.use(express.json());
+app.use(cors());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
  

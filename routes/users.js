@@ -6,8 +6,10 @@ const {UsersError, UsersErrorType} = require('../errors/usersError.js')
 var mongoose = require('mongoose');
 const router = express.Router();
 
+
 //create users
 router.post('/', async (req, res) => {
+    res.header('Access-Control-Allow-Origin', "*")
     // First Validate The Request
     const { error } = validateUser(req.body);
     if (error) {
@@ -18,7 +20,7 @@ router.post('/', async (req, res) => {
     // Check if this user already exisits
     let user = await User.findOne({ name: req.body.name });
     if (user) {
-        const err = new UsersError(UsersErrorType.userAlreadyExist, 'That user already exisits!')
+        const err = new UsersError(UsersErrorType.userAlreadyExist, 'That user already exists!')
         return res.status(400).send(err);
     } else {
         // Insert the new user if they do not exist yet
@@ -32,12 +34,13 @@ router.post('/', async (req, res) => {
         user.password = await bcrypt.hash(user.password, salt);
         await user.save();
         // res.send(user);
-        res.send(_.pick(user, ['_id', 'name']));
+        res.send(_.pick(user, ['_id', 'name', 'win', 'draw', 'loss']));
     }
 });
 
 //get user detail by id
 router.get('/:id', async(req, res)=>{
+    res.header('Access-Control-Allow-Origin', "*")
     // res.send(req.params.id)
     const isObjectId = validateUserId(req.params.id)
 
