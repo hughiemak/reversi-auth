@@ -14,7 +14,9 @@ if (!config.get('PrivateKey')) {
     process.exit(1);
 }
  
-mongoose.connect('mongodb://localhost/mongo-games', { useNewUrlParser: true, useFindAndModify: false})
+//mongodb+srv://admin:<password>@cluster0-4gwwx.azure.mongodb.net/test?retryWrites=true&w=majority
+//mongodb://localhost/mongo-games
+mongoose.connect('mongodb+srv://admin:admin@cluster0-4gwwx.azure.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useFindAndModify: false})
     .then(() => console.log('Now connected to MongoDB!'))
     .catch(err => console.error('Something went wrong', err));
  
