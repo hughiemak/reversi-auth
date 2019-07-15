@@ -5,7 +5,7 @@ const { User } = require('../models/user');
 const express = require('express');
 const jwt = require('jsonwebtoken');	
 const config = require('config');
-const {AuthError, AuthErrorType} = require('../errors/temp.js/index.js.js.js')
+const {AuthError, AuthErrorType} = require('../errors/authError.js/index.js.js.js.js')
 
 const router = express.Router();
 
